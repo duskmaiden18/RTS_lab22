@@ -1,6 +1,8 @@
 import math
 import matplotlib.pyplot as plt
 import random
+import numpy as np
+import timeit
 
 n = 12
 w = 2400
@@ -55,8 +57,21 @@ def fft(signal2):
         FFT.append(f_p)
     return FFT
 
+start_own = timeit.default_timer()
 fft_new=fft(signal)
+end_own = timeit.default_timer()
+time_own=end_own-start_own
 plt.plot(list(range(0,N)), fft_new)
 plt.title('FFT_new')
 plt.grid(True)
 plt.show()
+
+#додаткове завдання - порівняйте Вашу реалізацію із реалізованим FFT у будь-якій бібліотеці по часу
+start_numpy = timeit.default_timer()
+fft_numpy = np.fft.fft(np.array(signal))
+end_numpy = timeit.default_timer()
+time_numpy=end_numpy-start_numpy
+
+print('Time of my realisation: ', time_own)
+print('Time of numpy.fft.fft: ', time_numpy)
+print('Difference (own - numpy): ', time_own-time_numpy)
